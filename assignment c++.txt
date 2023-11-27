@@ -1,0 +1,300 @@
+#include <iostream>
+
+class Table {
+private:
+  std::string material;
+  int numberOfLegs;
+  std::string tableType;
+
+public:
+  Table(std::string material, int numberOfLegs, std::string tableType) {
+    this->material = material;
+    this->numberOfLegs = numberOfLegs;
+    this->tableType = tableType;
+  }
+
+  void getUsage() {
+    if (tableType == "reading table") {
+      std::cout << "This table is designed for reading and studying." << std::endl;
+    } else if (tableType == "dining table") {
+      std::cout << "This table is designed for dining and gathering with friends and family." << std::endl;
+    } else if (tableType == "computer table") {
+      std::cout << "This table is designed for working on a computer and other electronic devices." << std::endl;
+    } else {
+      std::cout << "Unknown table type." << std::endl;
+    }
+  }
+};
+
+int main() {
+
+  Table readingTable("Wood", 4, "reading table");
+
+  readingTable.getUsage();
+
+
+  Table diningTable("Metal", 6, "dining table");
+
+
+  diningTable.getUsage();
+
+
+  Table computerTable("Glass", 2, "computer table");
+
+
+  computerTable.getUsage();
+
+  return 0;
+}
+
+
+#include <iostream>
+#include <random>
+#include <vector>
+
+int main() {
+  // Seed the random number generator
+  std::srand(time(0));
+
+  // Allocate memory for the array of 100 elements
+  std::vector<int> array(100);
+
+  // Initialize the array elements using a random number generator function
+  for (int i = 0; i < 100; ++i) {
+    array[i] = std::rand() % 100 + 1;
+  }
+
+  // Display the output of the array elements before the reallocation
+  std::cout << "Array before reallocation:" << std::endl;
+  for (int i = 0; i < 100; ++i) {
+    std::cout << array[i] << " ";
+  }
+  std::cout << std::endl;
+
+  // Reduce the size of the array to half
+  array.resize(50);
+
+  // Display the output of the array elements after the reallocation
+  std::cout << "Array after reallocation:" << std::endl;
+  for (int i = 0; i < 50; ++i) {
+    std::cout << array[i] << " ";
+  }
+  std::cout << std::endl;
+
+  return 0;
+}
+
+
+#include <iostream>
+
+class Shape {
+protected:
+  double width;
+  double height;
+
+public:
+  Shape(double width, double height) {
+    this->width = width;
+    this->height = height;
+  }
+
+  virtual double getArea() = 0;
+  virtual double getPerimeter() = 0;
+};
+
+class Square : public Shape {
+public:
+  Square(double side) : Shape(side, side) {}
+
+  double getArea() override {
+    return width * width;
+  }
+
+  double getPerimeter() override {
+    return 4 * width;
+  }
+};
+
+class Rectangle : public Shape {
+public:
+  Rectangle(double width, double height) : Shape(width, height) {}
+
+  double getArea() override {
+    return width * height;
+  }
+
+  double getPerimeter() override {
+    return 2 * (width + height);
+  }
+};
+
+int main() {
+  Square square(5);
+  std::cout << "Area of square: " << square.getArea() << std::endl;
+  std::cout << "Perimeter of square: " << square.getPerimeter() << std::endl;
+
+  Rectangle rectangle(10, 2);
+  std::cout << "Area of rectangle: " << rectangle.getArea() << std::endl;
+  std::cout << "Perimeter of rectangle: " << rectangle.getPerimeter() << std::endl;
+
+  return 0;
+}
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Function to handle group entry
+void enterGroup(vector<int>& groupSizes, int groupNumber) {
+  if (groupNumber < 1 || groupNumber > groupSizes.size()) {
+    cout << "Invalid group number: " << groupNumber << endl;
+    return;
+  }
+
+  int currentGroupSize = groupSizes[groupNumber - 1];
+  cout << "Enter the number of students entering group " << groupNumber << ": ";
+  int newStudents;
+  cin >> newStudents;
+
+  groupSizes[groupNumber - 1] = currentGroupSize + newStudents;
+}
+
+// Function to handle group exit
+void exitGroup(vector<int>& groupSizes, int groupNumber) {
+  if (groupNumber < 1 || groupNumber > groupSizes.size()) {
+    cout << "Invalid group number: " << groupNumber << endl;
+    return;
+  }
+
+  int currentGroupSize = groupSizes[groupNumber - 1];
+  cout << "Enter the number of students exiting group " << groupNumber << ": ";
+  int exitingStudents;
+  cin >> exitingStudents;
+
+  if (exitingStudents > currentGroupSize) {
+    cout << "Invalid number of exiting students for group " << groupNumber << endl;
+    return;
+  }
+
+  groupSizes[groupNumber - 1] = currentGroupSize - exitingStudents;
+}
+
+// Function to display group sizes
+void displayGroupSizes(const vector<int>& groupSizes) {
+  cout << "Group sizes: " << endl;
+  for (int i = 0; i < groupSizes.size(); i++) {
+    cout << "Group " << i + 1 << ": " << groupSizes[i] << endl;
+  }
+}
+
+int main() {
+  // Initialize group sizes for 5 groups
+  vector<int> groupSizes(5, 0);
+
+  // Handle group entry and exit
+  int groupNumber;
+  char action;
+
+  while (true) {
+    cout << "Enter group number: ";
+    cin >> groupNumber;
+
+    cout << "Enter action (enter/exit): ";
+    cin >> action;
+
+    if (action == 'e') {
+      enterGroup(groupSizes, groupNumber);
+    } else if (action == 'x') {
+      exitGroup(groupSizes, groupNumber);
+    } else {
+      cout << "Invalid action" << endl;
+    }
+
+    displayGroupSizes(groupSizes);
+
+    cout << "\nContinue (y/n)? ";
+    char choice;
+    cin >> choice;
+
+    if (choice != 'y') {
+      break;
+    }
+  }
+
+  return 0;
+}
+
+#include <iostream>
+#include <string>
+ 
+// Base class for common details
+class Institute {
+public:
+    void setDetails(const std::string& n, int a, const std::string& ph) {
+        name = n;
+        age = a;
+        phoneNumber = ph;
+    }
+ 
+    void displayDetails() const {
+        std::cout << "Name: " << name << ", Age: " << age << ", Phone Number: " << phoneNumber << std::endl;
+    }
+ 
+private:
+    std::string name;
+    int age;
+    std::string phoneNumber;
+};
+ 
+// Derived class for student
+class Student : public Institute {
+public:
+    void setStudentDetails(const std::string& n, int a, const std::string& ph, int roll) {
+        setDetails(n, a, ph);
+        rollNumber = roll;
+    }
+ 
+    void displayStudentDetails() const {
+        displayDetails();
+        std::cout << "Roll Number: " << rollNumber << std::endl;
+    }
+ 
+private:
+    int rollNumber;
+};
+ 
+// Derived class for faculty
+class Faculty : public Institute {
+public:
+    void setFacultyDetails(const std::string& n, int a, const std::string& ph, const std::string& subject) {
+        setDetails(n, a, ph);
+        subjectTaught = subject;
+    }
+ 
+    void displayFacultyDetails() const {
+        displayDetails();
+        std::cout << "Subject Taught: " << subjectTaught << std::endl;
+    }
+ 
+private:
+    std::string subjectTaught;
+};
+ 
+int main() {
+    // Create objects of derived classes
+    Student student;
+    Faculty faculty;
+ 
+    // Set and display student details
+    student.setStudentDetails("John Doe", 20, "123-456-7890", 101);
+    std::cout << "\nStudent Details:" << std::endl;
+    student.displayStudentDetails();
+ 
+    // Set and display faculty details
+    faculty.setFacultyDetails("Dr. Smith", 35, "987-654-3210", "Computer Science");
+    std::cout << "\nFaculty Details:" << std::endl;
+    faculty.displayFacultyDetails();
+ 
+    return 0;
+}

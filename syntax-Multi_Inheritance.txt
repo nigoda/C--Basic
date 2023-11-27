@@ -1,0 +1,18 @@
+class subclass_name : access_mode base_class1, access_mode base_class2, ....
+{
+  // body of subclass
+};
+
+
+class B
+{ 
+... .. ... 
+};
+class C
+{
+... .. ...
+};
+class A: public B, public C
+{
+... ... ...
+};
